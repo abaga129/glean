@@ -20,17 +20,17 @@
 
 package com.madgag.git.bfg.textmatching
 
-import org.scalatest.FlatSpec
-import org.scalatest.matchers.ShouldMatchers
+import org.specs2.mutable._
 
-class TextMatcherSpec extends FlatSpec with ShouldMatchers {
+class TextMatcherSpec extends Specification {
 
-  "text matcher creation" should "parse prefix if present" in {
+  "text matcher creation" should {
+    "parse prefix if present" in {
+      TextMatcher("literal:foobar") mustEqual Literal("foobar")
+      TextMatcher("glob:foobar") mustEqual Glob("foobar")
+      TextMatcher("regex:foobar") mustEqual Reg("foobar")
 
-    TextMatcher("literal:foobar") should be(Literal("foobar"))
-    TextMatcher("glob:foobar") should be(Glob("foobar"))
-    TextMatcher("regex:foobar") should be(Reg("foobar"))
-
-    TextMatcher("boom", Reg) should be(Reg("boom"))
+      TextMatcher("boom", Reg) mustEqual Reg("boom")
+    }
   }
 }
